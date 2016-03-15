@@ -40,7 +40,7 @@ mongo --host ${controller} --eval "
   db.addUser({user: 'ceilometer',
   pwd: '${ADMIN_PASS}',
   roles: [ 'readWrite', 'dbAdmin' ]})"
-#mongo --host liberty1 ceilometer --eval 'db.changeUserPassword("ceilomater", "${ADMIN_PASS}")'
+mongo --host ${controller} ceilometer --eval "db.changeUserPassword('ceilometer', '${ADMIN_PASS}')"
 
 openstack user show ceilometer
 if [[ $? -ne 0 ]]; then

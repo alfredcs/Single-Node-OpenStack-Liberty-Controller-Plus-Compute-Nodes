@@ -31,15 +31,19 @@ export OS_IDENTITY_API_VERSION=3
 export DEBIAN_FRONTEND=noninteractive
 debconf-set-selections <<< "mysql-server mysql-server/root_password password ${ADMIN_PASS}"
 debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ${ADMIN_PASS}"
+service apache2 stop
 apt-get install -y --force-yes mariadb-server mariadb-client \
-	rabbitmq-server keystone apache2 libapache2-mod-wsgi memcached python-memcache glance python-glanceclient \
+	rabbitmq-server keystone apache2 libapache2-mod-wsgi memcached python-memcache 
+service keystone stop
+service apache2 restart
+apt-get install -y --force-yes glance python-glanceclient \
 	nova-api nova-cert nova-conductor nova-consoleauth nova-novncproxy nova-scheduler python-novaclient \
 	neutron-server neutron-plugin-ml2 neutron-plugin-openvswitch-agent neutron-l3-agent neutron-dhcp-agent neutron-metadata-agent python-neutronclient conntrack \
 	openstack-dashboard cinder-api cinder-scheduler python-cinderclient swift swift-proxy python-swiftclient python-keystoneclient python-keystonemiddleware \
 	heat-api heat-api-cfn heat-engine python-heatclient \
 	ceilometer-api ceilometer-collector ceilometer-agent-central ceilometer-agent-notification ceilometer-alarm-evaluator ceilometer-alarm-notifier python-ceilometerclient \
 	ceilometer-agent-compute python-ceilometermiddleware haproxy keepalived mongodb-server mongodb-clients python-pymongo
-[[ $? -ne 0 ]] && { echo "pkgs installation failed"; exit 1; }
+[[ $? -ne 0 ]] && { echo "pkgs installation failed"; exit 1; exit 1; }
 [[ -f /etc/mysql/my.cnf ]] && mv /etc/mysql/my.cnf /etc/mysql/my.cnf.save
 cat >> /etc/mysql/my.cnf << EOF
 [client]
@@ -277,5 +281,3 @@ export OS_IMAGE_API_VERSION=2
 export OS_VOLUME_API_VERSION=2
 export OS_IDENTITY_API_VERSION=3
 EOF
-
-[[ ! -f /root/.adminrc ]] && exit 1

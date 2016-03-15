@@ -45,7 +45,7 @@ done
 [[ ! ${ADMIN_PASS} ]] && { echo "Please provide the admin password!"; exit 1; }
 CLUSTER_NODES=${CLUSTER_NODES:-$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')}
 ADMIN_PASS=${ADMIN_PASS:-$(openssl rand -hex 10)}
-dpkg --purge `dpkg -l | egrep 'mongodb|memcached|rabbitmq-server|keystone|mariadb|nova|neutron|heat|ceilometer|cinder|swift|glance'| awk '{print $2}'`
+dpkg --purge `dpkg -l | egrep 'mongodb|memcached|rabbitmq-server|keystone|mariadb|nova|neutron|heat|ceilometer|cinder|swift|horizon|glance|openstack|manilaclient|troveclient|mistralclient|zaqarclient|barbicanclient|magnumclient|designateclient|saharaclient|novnc'| awk '{print $2}'`
 for dirs in memcached rabbitmq mongdb keystone glance mysql nova neutron cinder swift heat ceilometer horison
 do
 [[ -d /etc/$dirs ]] && rm -rf /etc/$dirs
@@ -53,7 +53,9 @@ do
 [[ -d /var/cache/$dirs ]] && rm -rf /var/cache/$dirs
 [[ -d /var/lib/$dirs ]] && rm -rf /var/lib/$dirs
 done
+[[ -d /usr/share/openstack-dashboard ]] && rm -rf /usr/share/openstack-dashboard
 [[ -f ./keystone.sh ]] && ./keystone.sh -a ${ADMIN_PASS} -c ${CLUSTER_NODES} -d ${DEBUG_FLAG}
+[[ $? -ne 0 ]] && exit 1
 [[ -f ./glance.sh ]] && ./glance.sh -a ${ADMIN_PASS} -c ${CLUSTER_NODES} -d ${DEBUG_FLAG}
 [[ -f ./nova.sh ]] && ./nova.sh  -a ${ADMIN_PASS} -c ${CLUSTER_NODES} -d${DEBUG_FLAG}
 [[ -f ./neutron.sh ]] && ./neutron.sh  -a ${ADMIN_PASS} -c ${CLUSTER_NODES} -d ${DEBUG_FLAG}
