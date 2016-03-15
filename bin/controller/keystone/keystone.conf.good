@@ -1,0 +1,49 @@
+[DEFAULT]
+debug=True
+verbose=True
+log_dir = /var/log/keystone
+admin_token = password
+[assignment]
+[auth]
+[cache]
+[catalog]
+[credential]
+[database]
+connection = mysql://keystone:password@localhost/keystone
+[domain_config]
+[endpoint_filter]
+[endpoint_policy]
+[eventlet_server]
+[eventlet_server_ssl]
+[federation]
+[fernet_tokens]
+[identity]
+[identity_mapping]
+[kvs]
+[ldap]
+[matchmaker_redis]
+[matchmaker_ring]
+[memcache]
+servers = localhost:11211
+[oauth1]
+[os_inherit]
+[oslo_messaging_amqp]
+[oslo_messaging_qpid]
+[oslo_messaging_rabbit]
+[oslo_middleware]
+[oslo_policy]
+[paste_deploy]
+[policy]
+[resource]
+[revoke]
+driver = keystone.contrib.revoke.backends.sql.Revoke
+[role]
+[saml]
+[signing]
+[ssl]
+[token]
+provider = keystone.token.providers.uuid.Provider
+driver = keystone.token.persistence.backends.memcache.Token
+[trust]
+[extra_headers]
+Distribution = Ubuntu

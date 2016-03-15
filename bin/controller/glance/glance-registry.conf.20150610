@@ -1,0 +1,53 @@
+[DEFAULT]
+debug = True
+verbose = True
+logging_exception_prefix = %(color)s%(asctime)s.%(msecs)03d TRACE %(name)s [01;35m%(instance)s[00m
+logging_debug_format_suffix = [00;33mfrom (pid=%(process)d) %(funcName)s %(pathname)s:%(lineno)d[00m
+logging_default_format_string = %(asctime)s.%(msecs)03d %(color)s%(levelname)s %(name)s [[00;36m-%(color)s] [01;35m%(instance)s%(color)s%(message)s[00m
+logging_context_format_string = %(asctime)s.%(msecs)03d %(color)s%(levelname)s %(name)s [[01;36m%(request_id)s [00;36m%(user)s %(tenant)s%(color)s] [01;35m%(instance)%(color)s%(message)s[00m
+rpc_backend = rabbit
+notification_driver = messaging
+workers = 2
+#enable_v1_registry = False
+#enable_v2_registry = True
+use_syslog = False
+#sql_connection = mysql://root:password@127.0.0.1/glance?charset=utf8
+bind_host = 3.39.89.230
+bind_port = 9191
+backlog = 4096
+api_limit_max = 1000
+limit_param_default = 25
+rabbit_host = localhost
+rabbit_port = 5672
+rabbit_use_ssl = false
+rabbit_userid = guest
+rabbit_password = guest
+rabbit_virtual_host = /
+rabbit_notification_exchange = glance
+rabbit_notification_topic = notifications
+rabbit_durable_queues = False
+[oslo_policy]
+[database]
+connection = mysql://glance:password@127.0.0.1/glance?charset=utf8
+[keystone_authtoken]
+signing_dir = /var/cache/glance/registry
+#cafile = /opt/stack/data/ca-bundle.pem
+auth_uri = http://3.39.89.230:5000
+project_domain_id = default
+project_name = service
+user_domain_id = default
+password = password
+username = glance
+auth_url = http://3.39.89.230:35357
+auth_plugin = password
+identity_uri = http://3.39.89.230:35357
+admin_tenant_name = %SERVICE_TENANT_NAME%
+admin_user = %SERVICE_USER%
+admin_password = %SERVICE_PASSWORD%
+[paste_deploy]
+flavor = keystone
+[profiler]
+[oslo_messaging_rabbit]
+rabbit_userid = openstack
+rabbit_password = password
+rabbit_hosts = 3.39.89.230

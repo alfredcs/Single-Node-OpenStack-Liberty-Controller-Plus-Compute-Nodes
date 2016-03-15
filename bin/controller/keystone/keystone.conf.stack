@@ -1,0 +1,64 @@
+[DEFAULT]
+max_token_size = 16384
+logging_exception_prefix = %(process)d TRACE %(name)s %(instance)s
+logging_debug_format_suffix = %(funcName)s %(pathname)s:%(lineno)d
+logging_default_format_string = %(process)d %(levelname)s %(name)s [-] %(instance)s%(message)s
+logging_context_format_string = %(process)d %(levelname)s %(name)s [%(request_id)s %(user_identity)s] %(instance)s%(message)s
+debug = True
+verbose = True
+admin_token = password
+rpc_backend = rabbit
+[assignment]
+#driver = sql
+[auth]
+[cache]
+[catalog]
+#driver = sql
+[cors]
+[cors.subdomain]
+[credential]
+[database]
+connection = mysql://keystone:password@10.10.1.10/keystone?charset=utf8
+[domain_config]
+[endpoint_filter]
+[endpoint_policy]
+[eventlet_server]
+admin_workers = 4
+admin_bind_host = 10.10.1.10
+[eventlet_server_ssl]
+[federation]
+[fernet_tokens]
+[identity]
+#driver = sql
+[identity_mapping]
+[kvs]
+[ldap]
+[matchmaker_redis]
+[matchmaker_ring]
+[memcache]
+servers = localhost:11211
+[oauth1]
+[os_inherit]
+[oslo_messaging_amqp]
+[oslo_messaging_qpid]
+[oslo_messaging_rabbit]
+rabbit_userid = openstack
+rabbit_password = password
+rabbit_hosts = 10.10.1.10
+[oslo_middleware]
+[oslo_policy]
+[paste_deploy]
+config_file = /etc/keystone/keystone-paste.ini
+[policy]
+[resource]
+[revoke]
+driver = keystone.contrib.revoke.backends.sql.Revoke
+[role]
+[saml]
+[signing]
+[ssl]
+[token]
+driver = sql
+provider = keystone.token.providers.uuid.Provider
+driver = keystone.token.persistence.backends.memcache.Token
+[trust]

@@ -1,0 +1,1 @@
+dpkg --purge `dpkg -l | egrep 'apache2|mongodb|memcached|rabbitmq-server|keystone|mariadb|nova|neutron|heat|ceilometer|cinder|swift|glance'| awk '{print $2}'`

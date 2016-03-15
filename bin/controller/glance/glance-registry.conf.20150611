@@ -1,0 +1,20 @@
+[DEFAULT]
+debug = True
+verbose = True
+notification_driver = noop
+[oslo_policy]
+[database]
+connection = mysql://glance:password@127.0.0.1/glance?charset=utf8
+[keystone_authtoken]
+auth_uri = http://3.39.89.230:5000
+auth_url = http://3.39.89.230:35357
+auth_plugin = password
+project_domain_id = default
+user_domain_id = default
+project_name = service
+username = glance
+password = password
+[paste_deploy]
+flavor = keystone
+[profiler]
+[oslo_messaging_rabbit]

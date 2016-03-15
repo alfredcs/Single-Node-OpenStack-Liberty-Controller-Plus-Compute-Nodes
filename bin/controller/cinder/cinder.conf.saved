@@ -1,0 +1,60 @@
+[keystone_authtoken]
+verbose = True
+signing_dir = /var/cache/cinder
+#cafile = /var/lib/data/ca-bundle.pem
+auth_uri = http://3.39.89.230:5000
+project_domain_id = default
+project_name = service
+user_domain_id = default
+password = password
+username = cinder
+auth_url = http://3.39.89.230:35357
+auth_plugin = password
+
+[DEFAULT]
+os_privileged_user_tenant = service
+os_privileged_user_password = password
+os_privileged_user_name = nova
+glance_api_servers = http://3.39.89.230:9292
+osapi_volume_workers = 2
+logging_exception_prefix = %(color)s%(asctime)s.%(msecs)03d TRACE %(name)s ^[[01;35m%(instance)s^[[00m
+logging_debug_format_suffix = ^[[00;33mfrom (pid=%(process)d) %(funcName)s %(pathname)s:%(lineno)d^[[00m
+logging_default_format_string = %(asctime)s.%(msecs)03d %(color)s%(levelname)s %(name)s [^[[00;36m-%(color)s] ^[[01;35m%(instance)s%(color)s%(message)s^[[00m
+logging_context_format_string = %(asctime)s.%(msecs)03d %(color)s%(levelname)s %(name)s [^[[01;36m%(request_id)s ^[[00;36m%(user_id)s %(project_id)s%(color)s] ^[[01;35m%(instance)s%(color)s%(message)s^[[00m
+volume_clear = zero
+rpc_backend = rabbit
+default_volume_type = lvmdriver-1
+enabled_backends = lvmdriver-1
+os_region_name = RegionOne
+enable_v1_api = true
+periodic_interval = 60
+state_path = /var/lock/cinder
+osapi_volume_extension = cinder.api.contrib.standard_extensions
+rootwrap_config = /etc/cinder/rootwrap.conf
+api_paste_config = /etc/cinder/api-paste.ini
+iscsi_helper = tgtadm
+verbose = True
+debug = True
+auth_strategy = keystone
+nova_catalog_admin_info = compute:nova:adminURL
+nova_catalog_info = compute:nova:publicURL
+nfs_shares_config = /etc/cinder/nfsshares
+volume_driver = cinder.volume.drivers.nfs.NfsDriver
+
+[database]
+connection = mysql://cinder:password@127.0.0.1/cinder?charset=utf8
+
+[oslo_concurrency]
+lock_path = /var/lock/cinder
+
+[lvmdriver-1]
+iscsi_helper = tgtadm
+volume_group = stack-volumes-lvmdriver-1
+#volume_driver = cinder.volume.drivers.lvm.LVMVolumeDriver
+volume_driver = cinder.volume.drivers.nfs.NfsDriver
+volume_backend_name = lvmdriver-1
+
+[oslo_messaging_rabbit]
+rabbit_userid = openstack
+rabbit_password = password
+rabbit_hosts = 3.39.89.230

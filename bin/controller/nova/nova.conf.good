@@ -1,0 +1,87 @@
+[DEFAULT]
+vif_plugging_timeout = 300
+vif_plugging_is_fatal = True
+linuxnet_interface_driver = 
+security_group_api = neutron
+network_api_class = nova.network.neutronv2.api.API
+firewall_driver = nova.virt.firewall.NoopFirewallDriver
+compute_driver = libvirt.LibvirtDriver
+default_ephemeral_format = ext4
+metadata_workers = 2
+ec2_workers = 2
+osapi_compute_workers = 2
+rpc_backend = rabbit
+keystone_ec2_url = http://3.39.89.230:5000/v2.0/ec2tokens
+#ec2_dmz_host = 3.39.89.230
+vncserver_proxyclient_address = 10.10.1.10
+vncserver_listen = 10.10.1.10
+vnc_enabled = true
+xvpvncproxy_base_url = http://3.39.89.230:6081/console
+novncproxy_base_url = http://3.39.89.230:6080/vnc_auto.html
+logging_exception_prefix = %(color)s%(asctime)s.%(msecs)03d TRACE %(name)s [01;35m%(instance)s[00m
+logging_debug_format_suffix = [00;33mfrom (pid=%(process)d) %(funcName)s %(pathname)s:%(lineno)d[00m
+logging_default_format_string = %(asctime)s.%(msecs)03d %(color)s%(levelname)s %(name)s [[00;36m-%(color)s] [01;35m%(instance)s%(color)s%(message)s[00m
+logging_context_format_string = %(asctime)s.%(msecs)03d %(color)s%(levelname)s %(name)s [[01;36m%(request_id)s [00;36m%(user_name)s %(project_name)s%(color)s] [01;35m(instance)s%(color)s%(message)s[00m
+force_config_drive = True
+instances_path = /var/lib/nova/instances
+state_path = /var/lib/nova
+enabled_apis = ec2,osapi_compute,metadata
+instance_name_template = instance-%08x
+my_ip = 3.39.89.230
+#s3_port = 3333
+#s3_host = 3.39.89.230
+default_floating_pool = public
+force_dhcp_release = True
+dhcpbridge_flagfile = /etc/nova/nova.conf
+scheduler_driver = nova.scheduler.filter_scheduler.FilterScheduler
+rootwrap_config = /etc/nova/rootwrap.conf
+api_paste_config = /etc/nova/api-paste.ini
+allow_resize_to_same_host = True
+debug = True
+verbose = True
+[database]
+connection = mysql://nova:password@127.0.0.1/nova?charset=utf8
+[osapi_v3]
+enabled = True
+[keystone_authtoken]
+signing_dir = /var/cache/nova
+#cafile = /opt/stack/data/ca-bundle.pem
+auth_uri = http://3.39.89.230:5000
+project_domain_id = default
+project_name = service
+user_domain_id = default
+password = password
+username = nova
+auth_url = http://3.39.89.230:35357
+auth_plugin = password
+[oslo_concurrency]
+lock_path = /var/lib/nova
+[spice]
+enabled = false
+html5proxy_base_url = http://3.39.89.230:6082/spice_auto.html
+[oslo_messaging_rabbit]
+rabbit_userid = openstack
+rabbit_password = password
+rabbit_hosts = 3.39.89.230
+[glance]
+api_servers = http://3.39.89.230:9292
+[cinder]
+os_region_name = RegionOne
+[libvirt]
+vif_driver = nova.virt.libvirt.vif.LibvirtGenericVIFDriver
+inject_partition = -2
+live_migration_uri = qemu+ssh://vagrant@%s/system
+use_usb_tablet = False
+cpu_mode = none
+virt_type = qemu
+[neutron]
+service_metadata_proxy = True
+url = http://3.39.89.230:9696
+region_name = RegionOne
+admin_tenant_name = service
+auth_strategy = keystone
+admin_auth_url = http://3.39.89.230:35357/v2.0
+admin_password = password
+admin_username = neutron
+[keymgr]
+fixed_key = 586a5a25c28754e2c0bef3fe71b666e5223196e7b73da307ad9b406e6117d5de
